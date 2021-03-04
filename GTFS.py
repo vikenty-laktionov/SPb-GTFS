@@ -49,7 +49,7 @@ with open('trips.txt') as trip_file:
             line_count += 1
         else:
             if row[1] in services:
-                if row[3] == '1':
+                if row[3] == '0':
                     tripcounterforward[row[0]] += 1
                 else:
                     tripcounterbackward[row[0]] += 1
