@@ -64,13 +64,15 @@ with open('routes.txt', encoding='utf-8') as route_file, open('result'+timestr+'
     write_line_count = 0
     for row in csv_reader:
         if line_count == 0:
-            csv_writer.writerow(['route_name','forward','back','total'])
+            csv_writer.writerow(['Маршрут','Вид транспорта','туда','обратно','всего'])
             line_count += 1
-        elif row[5] == 'bus':
-            routenames[row[0]]=row[2]
+        else:
+            routenames[row[0]]=[row[2],row[5]]
+            line_count += 1
+    print(f'Processed {line_count} routename lines.')
     for routename in routenames:
-        if routename in tripcounterforward and routenames[routename][0] != 'К':
-            csv_writer.writerow([routenames[routename], tripcounterforward[routename], tripcounterbackward[routename], int(tripcounterforward[routename])+int(tripcounterbackward[routename])])
+        if routename in tripcounterforward and routenames[routename][0][0] != 'К':
+            csv_writer.writerow([routenames[routename][0], routenames[routename][1], tripcounterforward[routename], tripcounterbackward[routename], int(tripcounterforward[routename])+int(tripcounterbackward[routename])])
             write_line_count += 1
     print(f'Wrote {write_line_count} result lines.')
 
